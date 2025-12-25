@@ -2,11 +2,9 @@
 
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { PageHeader } from "@/components/sections/PageHeader";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { MapPin, Phone, Mail, Clock, UserCheck } from "lucide-react";
+import { motion } from "framer-motion";
+import Image from "next/image";
+import { MapPin, Phone, Mail, Clock, Send, CheckCircle2, MessageSquare } from "lucide-react";
 
 function ContactForm() {
     const searchParams = useSearchParams();
@@ -24,7 +22,6 @@ function ContactForm() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsSubmitting(true);
-        // Simulate network request
         await new Promise(resolve => setTimeout(resolve, 1500));
         setIsSubmitting(false);
         setSubmitted(true);
@@ -32,79 +29,102 @@ function ContactForm() {
 
     if (submitted) {
         return (
-            <div className="text-center py-12">
-                <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <UserCheck className="h-8 w-8" />
+            <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="text-center py-16"
+            >
+                <div className="w-20 h-20 bg-secondary/10 text-secondary rounded-full flex items-center justify-center mx-auto mb-6">
+                    <CheckCircle2 className="h-10 w-10" />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">Message Sent!</h3>
-                <p className="text-gray-600 mb-8">
+                <h3 className="text-3xl font-serif font-bold text-black mb-4">Message Sent!</h3>
+                <p className="text-gray-600 mb-8 max-w-md mx-auto">
                     Thank you for reaching out. One of our travel experts will get back to you within 24 hours.
                 </p>
-                <Button onClick={() => setSubmitted(false)} variant="outline">
+                <button
+                    onClick={() => setSubmitted(false)}
+                    className="bg-black text-white px-8 py-3 font-bold uppercase tracking-wider hover:bg-secondary hover:text-black transition-colors"
+                >
                     Send Another Message
-                </Button>
-            </div>
+                </button>
+            </motion.div>
         );
     }
 
     return (
         <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-                <Input
-                    type="text"
-                    id="name"
-                    required
-                    placeholder="John Doe"
-                />
-            </div>
-            <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-                <Input
-                    type="email"
-                    id="email"
-                    required
-                    placeholder="john@example.com"
-                />
-            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-                    <Input
-                        type="tel"
-                        id="phone"
-                        placeholder="+1 (555) 000-0000"
+                    <label className="block text-sm font-bold uppercase tracking-wider text-black mb-2">Full Name *</label>
+                    <input
+                        type="text"
+                        required
+                        placeholder="John Doe"
+                        className="w-full px-4 py-3 border-2 border-black/10 focus:border-secondary outline-none transition-colors"
                     />
                 </div>
                 <div>
-                    <label htmlFor="date" className="block text-sm font-medium text-gray-700 mb-1">Travel Date (Approx)</label>
-                    <Input
-                        type="date"
-                        id="date"
+                    <label className="block text-sm font-bold uppercase tracking-wider text-black mb-2">Email *</label>
+                    <input
+                        type="email"
+                        required
+                        placeholder="john@example.com"
+                        className="w-full px-4 py-3 border-2 border-black/10 focus:border-secondary outline-none transition-colors"
                     />
                 </div>
             </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label className="block text-sm font-bold uppercase tracking-wider text-black mb-2">Phone</label>
+                    <input
+                        type="tel"
+                        placeholder="+1 (555) 000-0000"
+                        className="w-full px-4 py-3 border-2 border-black/10 focus:border-secondary outline-none transition-colors"
+                    />
+                </div>
+                <div>
+                    <label className="block text-sm font-bold uppercase tracking-wider text-black mb-2">Travel Date</label>
+                    <input
+                        type="date"
+                        className="w-full px-4 py-3 border-2 border-black/10 focus:border-secondary outline-none transition-colors"
+                    />
+                </div>
+            </div>
+
             <div>
-                <label htmlFor="interest" className="block text-sm font-medium text-gray-700 mb-1">Interested In</label>
-                <Input
+                <label className="block text-sm font-bold uppercase tracking-wider text-black mb-2">Interested In</label>
+                <input
                     type="text"
-                    id="interest"
                     value={interest}
                     onChange={(e) => setInterest(e.target.value)}
                     placeholder="e.g. Wildlife Tour, Ella..."
+                    className="w-full px-4 py-3 border-2 border-black/10 focus:border-secondary outline-none transition-colors"
                 />
             </div>
+
             <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">Message</label>
-                <Textarea
-                    id="message"
-                    rows={4}
+                <label className="block text-sm font-bold uppercase tracking-wider text-black mb-2">Message *</label>
+                <textarea
+                    required
+                    rows={5}
                     placeholder="Tell us about your travel plans..."
+                    className="w-full px-4 py-3 border-2 border-black/10 focus:border-secondary outline-none transition-colors resize-none"
                 />
             </div>
-            <Button type="submit" className="w-full h-12 text-lg" disabled={isSubmitting}>
-                {isSubmitting ? "Sending..." : "Send Message"}
-            </Button>
+
+            <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full bg-secondary text-black py-4 font-bold uppercase tracking-wider hover:bg-black hover:text-white transition-colors flex items-center justify-center gap-3 disabled:opacity-50"
+            >
+                {isSubmitting ? "Sending..." : (
+                    <>
+                        <Send className="h-5 w-5" />
+                        Send Message
+                    </>
+                )}
+            </button>
         </form>
     );
 }
@@ -112,78 +132,110 @@ function ContactForm() {
 export default function ContactPage() {
     return (
         <>
-            <PageHeader
-                title="Contact Us"
-                subtitle="Start planning your dream Sri Lankan getaway today."
-                image="https://images.unsplash.com/photo-1590664095641-7fa05f297864?q=80&w=2070"
-            />
+            {/* Hero Section */}
+            <section className="relative h-[60vh] overflow-hidden bg-black">
+                <div className="absolute inset-0">
+                    <Image
+                        src="/gallery/galle-fort.jpg"
+                        alt="Contact Us"
+                        fill
+                        className="object-cover opacity-50"
+                        priority
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black" />
+                </div>
 
-            <section className="py-20 container-custom">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
+                <div className="relative h-full flex flex-col items-center justify-center text-center px-4">
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8 }}
+                    >
+                        <h1 className="text-6xl md:text-8xl font-serif text-white mb-6">
+                            Let's <span className="italic text-secondary">Connect</span>
+                        </h1>
+                        <div className="h-[2px] w-24 bg-secondary mx-auto mb-6" />
+                        <p className="text-xl text-white/80 max-w-2xl">
+                            Start planning your dream Sri Lankan adventure today
+                        </p>
+                    </motion.div>
+                </div>
+            </section>
 
-                    {/* Contact Info */}
-                    <div className="space-y-8">
-                        <div>
-                            <h2 className="text-3xl font-serif font-bold text-primary mb-6">Get in Touch</h2>
-                            <p className="text-gray-600 leading-relaxed">
-                                Whether you're ready to book or just looking for some inspiration,
-                                we'd love to hear from you. Our team is available 24/7 to answer your questions.
+            {/* Contact Info Cards */}
+            <section className="py-20 bg-white">
+                <div className="container-custom">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {[
+                            { icon: MapPin, title: "Visit Us", info: ["123 Tourism Dr", "Colombo 03, Sri Lanka"] },
+                            { icon: Mail, title: "Email Us", info: ["hello@smtours.lk", "bookings@smtours.lk"] },
+                            { icon: Phone, title: "Call Us", info: ["+94 77 123 4567", "+94 11 234 5678"] },
+                            { icon: Clock, title: "Office Hours", info: ["Mon-Fri: 9AM - 6PM", "Weekend: 10AM - 4PM"] }
+                        ].map((item, index) => (
+                            <motion.div
+                                key={index}
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.5, delay: index * 0.1 }}
+                                viewport={{ once: true }}
+                                whileHover={{ y: -5 }}
+                                className="p-8 bg-black text-white group hover:bg-secondary hover:text-black transition-colors duration-500"
+                            >
+                                <item.icon className="h-10 w-10 mb-6" />
+                                <h3 className="text-xl font-bold mb-4 uppercase tracking-wider">{item.title}</h3>
+                                {item.info.map((line, i) => (
+                                    <p key={i} className="opacity-80 mb-1">{line}</p>
+                                ))}
+                            </motion.div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Form Section */}
+            <section className="py-32 bg-gray-50">
+                <div className="container-custom">
+                    <div className="max-w-4xl mx-auto">
+                        <motion.div
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8 }}
+                            viewport={{ once: true }}
+                            className="text-center mb-16"
+                        >
+                            <MessageSquare className="h-12 w-12 text-secondary mx-auto mb-6" />
+                            <h2 className="text-5xl md:text-7xl font-serif text-black mb-6">
+                                Send Us a <span className="italic text-secondary">Message</span>
+                            </h2>
+                            <div className="h-[2px] w-16 bg-secondary mx-auto mb-6" />
+                            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                                Whether you're ready to book or just looking for inspiration, we'd love to hear from you
                             </p>
-                        </div>
+                        </motion.div>
 
-                        <div className="space-y-6">
-                            <div className="flex items-start gap-4">
-                                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
-                                    <MapPin className="h-6 w-6 text-primary" />
-                                </div>
-                                <div>
-                                    <h3 className="font-bold text-gray-900 mb-1">Visit Us</h3>
-                                    <p className="text-gray-600">123 Tourism Dr, Colombo 03, Sri Lanka</p>
-                                </div>
-                            </div>
-
-                            <div className="flex items-start gap-4">
-                                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
-                                    <Mail className="h-6 w-6 text-primary" />
-                                </div>
-                                <div>
-                                    <h3 className="font-bold text-gray-900 mb-1">Email Us</h3>
-                                    <p className="text-gray-600">hello@smtours.lk</p>
-                                    <p className="text-gray-600">bookings@smtours.lk</p>
-                                </div>
-                            </div>
-
-                            <div className="flex items-start gap-4">
-                                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
-                                    <Phone className="h-6 w-6 text-primary" />
-                                </div>
-                                <div>
-                                    <h3 className="font-bold text-gray-900 mb-1">Call Us</h3>
-                                    <p className="text-gray-600">+94 77 123 4567</p>
-                                    <p className="text-gray-600">+94 11 234 5678</p>
-                                </div>
-                            </div>
-
-                            <div className="flex items-start gap-4">
-                                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
-                                    <Clock className="h-6 w-6 text-primary" />
-                                </div>
-                                <div>
-                                    <h3 className="font-bold text-gray-900 mb-1">Office Hours</h3>
-                                    <p className="text-gray-600">Mon - Fri: 9:00 AM - 6:00 PM</p>
-                                    <p className="text-gray-600">Weekend: 10:00 AM - 4:00 PM</p>
-                                </div>
-                            </div>
-                        </div>
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.8 }}
+                            viewport={{ once: true }}
+                            className="bg-white p-8 md:p-12 shadow-2xl border-2 border-black/5"
+                        >
+                            <Suspense fallback={<div className="h-96 flex items-center justify-center text-gray-400">Loading form...</div>}>
+                                <ContactForm />
+                            </Suspense>
+                        </motion.div>
                     </div>
+                </div>
+            </section>
 
-                    {/* Form */}
-                    <div className="bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
-                        <Suspense fallback={<div className="h-96 flex items-center justify-center text-gray-400">Loading form...</div>}>
-                            <ContactForm />
-                        </Suspense>
+            {/* Map Placeholder */}
+            <section className="h-[400px] bg-gray-200 relative">
+                <div className="absolute inset-0 flex items-center justify-center text-gray-500">
+                    <div className="text-center">
+                        <MapPin className="h-12 w-12 mx-auto mb-4" />
+                        <p className="text-lg font-bold">Map Integration Placeholder</p>
+                        <p className="text-sm">Colombo, Sri Lanka</p>
                     </div>
-
                 </div>
             </section>
         </>
