@@ -4,7 +4,7 @@ import { useState, useMemo } from "react";
 import { PageHeader } from "@/components/sections/PageHeader";
 import { TourCard } from "@/components/ui/TourCard";
 import { cn } from "@/lib/utils";
-import { toursData, Tour } from "@/lib/tours-data";
+import { toursData, Tour } from "../../lib/tours-data";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, SlidersHorizontal } from "lucide-react";
 
