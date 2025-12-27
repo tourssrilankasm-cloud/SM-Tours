@@ -9,25 +9,25 @@ import { useState } from "react";
 const destinations = [
     {
         name: "Sigiriya",
-        image: "/destinations/sigiriya.jpg",
+        image: "/destinations/sigiriya-new.jpg",
         id: "sigiriya",
         desc: "The Lion Rock Fortress"
     },
     {
         name: "Ella",
-        image: "/destinations/ella.jpg",
+        image: "/destinations/ella-new.jpg",
         id: "ella",
         desc: "Misty Mountain Peaks"
     },
     {
         name: "Galle",
-        image: "/destinations/galle.jpg",
+        image: "/destinations/galle-new.jpg",
         id: "galle",
         desc: "Portuguese Heritage"
     },
     {
         name: "Yala",
-        image: "/destinations/yala.jpg",
+        image: "/destinations/yala-new.jpg",
         id: "yala",
         desc: "Safari & Wilderness"
     }
