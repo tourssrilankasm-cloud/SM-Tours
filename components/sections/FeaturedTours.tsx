@@ -9,25 +9,25 @@ import Link from "next/link";
 const tours = [
     {
         title: "Signature Sri Lanka",
-        image: "/tours/signature.jpg",
+        image: "/tours/signature-new.jpg",
         days: "14 Days",
         type: "Luxury"
     },
     {
         title: "Wilderness Echoes",
-        image: "/tours/wildlife.jpg",
+        image: "/tours/wildlife-new.jpg",
         days: "7 Days",
         type: "Wildlife"
     },
     {
         title: "Cultural Odyssey",
-        image: "/tours/cultural.jpg",
+        image: "/tours/cultural-new.jpg",
         days: "10 Days",
         type: "Heritage"
     },
     {
         title: "Coastal Bliss",
-        image: "/tours/beach.jpg",
+        image: "/tours/beach-new.jpg",
         days: "5 Days",
         type: "Beach"
     },
