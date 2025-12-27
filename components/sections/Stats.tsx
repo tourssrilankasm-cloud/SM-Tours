@@ -78,7 +78,7 @@ function StatItem({ stat, index }: { stat: any, index: number }) {
             viewport={{ once: true }}
             onHoverStart={() => setIsHovered(true)}
             onHoverEnd={() => setIsHovered(false)}
-            className="relative h-[300px] lg:h-full border-r border-b border-white/10 last:border-r-0 lg:last:border-r-0 flex flex-col items-center justify-center cursor-pointer overflow-hidden group bg-black"
+            className="relative h-auto min-h-[250px] lg:h-full border-r-0 border-b border-white/10 md:border-r md:last:border-r-0 lg:border-b-0 flex flex-col items-center justify-center cursor-pointer overflow-hidden group bg-black"
         >
             {/* Background Image Reveal */}
             <motion.div

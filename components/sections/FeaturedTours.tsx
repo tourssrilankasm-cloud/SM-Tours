@@ -45,7 +45,7 @@ export function FeaturedTours() {
             <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden perspective-1000">
                 {/* Background Title */}
                 <div className="absolute top-10 left-0 w-full text-center z-10 pointer-events-none mix-blend-difference">
-                    <h2 className="text-[12vw] font-serif font-black leading-none text-white/10 select-none">
+                    <h2 className="text-8xl md:text-[12vw] font-serif font-black leading-none text-white/10 select-none">
                         SIGNATURE
                     </h2>
                 </div>

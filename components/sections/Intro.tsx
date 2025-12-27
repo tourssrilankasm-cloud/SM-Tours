@@ -22,7 +22,7 @@ export function Intro() {
                 <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-white rounded-full blur-[128px]" />
             </div>
 
-            <div className="container-custom max-w-5xl px-6 relative z-10">
+            <div className="container-custom max-w-7xl px-6 relative z-10">
                 <p className="text-3xl md:text-5xl lg:text-7xl font-serif font-medium leading-[1.1] flex flex-wrap gap-x-4 gap-y-2">
                     {words.map((word, i) => {
                         const start = i / words.length;

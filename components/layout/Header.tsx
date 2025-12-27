@@ -43,7 +43,7 @@ export function Header() {
         <div className="fixed top-6 left-0 w-full z-50 px-4 md:px-0 flex justify-center pointer-events-none">
             <header
                 className={cn(
-                    "w-full max-w-5xl rounded-2xl border border-white/10 transition-all duration-300 pointer-events-auto",
+                    "w-full max-w-7xl rounded-2xl border border-white/10 transition-all duration-300 pointer-events-auto",
                     isScrolled
                         ? "bg-primary/80 backdrop-blur-xl shadow-2xl py-3 px-6"
                         : "bg-black/20 backdrop-blur-md py-4 px-8"

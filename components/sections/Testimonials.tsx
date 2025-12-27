@@ -37,7 +37,7 @@ export function Testimonials() {
                     transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
                 >
                     {[...testimonials, ...testimonials, ...testimonials].map((item, index) => (
-                        <div key={index} className="w-[450px] h-[300px] bg-white/5 backdrop-blur-md p-10 rounded-none border border-white/10 flex flex-col justify-between shrink-0 hover:border-secondary/50 transition-colors duration-500 group">
+                        <div key={index} className="w-[85vw] md:w-[450px] h-[300px] bg-white/5 backdrop-blur-md p-6 md:p-10 rounded-none border border-white/10 flex flex-col justify-between shrink-0 hover:border-secondary/50 transition-colors duration-500 group">
                             <Quote className="h-12 w-12 text-secondary/50 group-hover:text-secondary transition-colors" />
                             <p className="text-2xl font-serif text-white/90 whitespace-normal leading-relaxed italic">"{item.text}"</p>
                             <div className="flex items-center gap-4 pt-6 border-t border-white/10">

@@ -44,7 +44,7 @@ export function Hero() {
                     style={{ scale, opacity }}
                     className="relative z-10 flex flex-col items-center justify-center mix-blend-overlay"
                 >
-                    <h1 className="text-[15vw] font-black tracking-tighter text-white leading-none text-center select-none">
+                    <h1 className="text-[18vw] md:text-[15vw] font-black tracking-tighter text-white leading-none text-center select-none">
                         SRI<br />LANKA
                     </h1>
                     <p className="mt-4 text-xl sm:text-2xl font-light tracking-[0.5em] text-white uppercase">
@@ -57,7 +57,7 @@ export function Hero() {
                     style={{ opacity: useTransform(scrollYProgress, [0.3, 0.5], [0, 1]) }}
                     className="absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none"
                 >
-                    <h2 className="text-6xl md:text-8xl font-serif font-bold text-white text-center drop-shadow-2xl">
+                    <h2 className="text-4xl sm:text-6xl md:text-8xl font-serif font-bold text-white text-center drop-shadow-2xl">
                         Discover <br /> <span className="text-secondary italic">Pure Luxury</span>
                     </h2>
                 </motion.div>
