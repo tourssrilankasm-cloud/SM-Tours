@@ -26,17 +26,25 @@ export function VideoShowcase() {
                 viewport={{ once: true }}
                 className="relative z-10 flex flex-col items-center cursor-pointer group"
             >
-                <div className="w-24 h-24 rounded-full border-2 border-white/30 flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-transform duration-500 bg-white/10">
-                    <div className="w-16 h-16 rounded-full bg-secondary flex items-center justify-center shadow-2xl shadow-secondary/50">
-                        <Play className="fill-black text-black ml-1 h-8 w-8" />
+                <div className="relative">
+                    <div className="absolute inset-0 bg-secondary/50 rounded-full blur-xl animate-pulse" />
+                    <div className="w-24 h-24 rounded-full border border-white/20 flex items-center justify-center backdrop-blur-md group-hover:scale-110 transition-transform duration-500 bg-white/5 relative z-10">
+                        <div className="w-16 h-16 rounded-full bg-secondary flex items-center justify-center shadow-[0_0_40px_rgba(255,255,255,0.3)] group-hover:bg-white transition-colors duration-300">
+                            <Play className="fill-black text-black ml-1 h-6 w-6 group-hover:text-secondary group-hover:fill-secondary transition-colors duration-300" />
+                        </div>
                     </div>
                 </div>
-                <h2 className="mt-8 text-4xl md:text-6xl font-serif font-bold text-white tracking-wide drop-shadow-lg">
-                    See the <span className="text-secondary">Unseen</span>
+
+                <h2 className="mt-10 text-5xl md:text-7xl font-serif font-black text-white tracking-tight drop-shadow-2xl text-center">
+                    See the <span className="text-secondary italic">Unseen</span>
                 </h2>
-                <p className="mt-4 text-white/80 text-lg uppercase tracking-widest font-medium">
-                    Watch the Experience
-                </p>
+                <div className="mt-6 flex items-center gap-3">
+                    <div className="h-[1px] w-12 bg-white/50" />
+                    <p className="text-white/90 text-sm uppercase tracking-[0.3em] font-bold">
+                        Watch the Experience
+                    </p>
+                    <div className="h-[1px] w-12 bg-white/50" />
+                </div>
             </motion.div>
         </section>
     );

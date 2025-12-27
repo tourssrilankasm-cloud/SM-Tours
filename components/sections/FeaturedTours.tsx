@@ -37,59 +37,76 @@ export function FeaturedTours() {
     const targetRef = useRef(null);
     const { scrollYProgress } = useScroll({
         target: targetRef,
+        offset: ["start start", "end end"]
     });
 
-    const x = useTransform(scrollYProgress, [0, 1], ["1%", "-75%"]);
-
     return (
-        <section ref={targetRef} className="relative h-[300vh] bg-black">
-            <div className="sticky top-0 h-screen flex items-center overflow-hidden">
-                <div className="absolute top-10 left-10 z-20 mix-blend-difference text-white">
-                    <h2 className="text-5xl md:text-7xl font-serif font-bold leading-none">
-                        Our Signature <br /> <span className="text-secondary">Journeys</span>
+        <section ref={targetRef} className="relative h-[400vh] bg-black">
+            <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden perspective-1000">
+                {/* Background Title */}
+                <div className="absolute top-10 left-0 w-full text-center z-10 pointer-events-none mix-blend-difference">
+                    <h2 className="text-[12vw] font-serif font-black leading-none text-white/10 select-none">
+                        SIGNATURE
                     </h2>
                 </div>
 
-                <motion.div style={{ x }} className="flex gap-12 pl-[10vw]">
-                    {tours.map((tour, index) => (
-                        <div key={index} className="relative w-[80vw] md:w-[60vw] h-[70vh] shrink-0 group overflow-hidden border border-white/20">
-                            <Image
-                                src={tour.image}
-                                alt={tour.title}
-                                fill
-                                className="object-cover transition-transform duration-700 group-hover:scale-105"
-                            />
-                            <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-500" />
+                <div className="relative w-[300px] md:w-[500px] h-[400px] md:h-[600px] perspective-1000">
+                    {tours.map((tour, index) => {
+                        return <Card key={index} tour={tour} index={index} progress={scrollYProgress} total={tours.length} />;
+                    })}
+                </div>
 
-                            <div className="absolute bottom-0 left-0 p-8 md:p-12 w-full flex justify-between items-end">
-                                <div>
-                                    <span className="text-secondary tracking-widest uppercase text-sm font-bold mb-2 block">{tour.type} | {tour.days}</span>
-                                    <h3 className="text-4xl md:text-6xl font-bold font-serif text-white mb-6 transform transition-transform duration-500 group-hover:-translate-y-2">
-                                        {tour.title}
-                                    </h3>
-                                    <Link href={`/contact?tour=${encodeURIComponent(tour.title)}`}>
-                                        <button className="bg-secondary text-black px-8 py-3 font-bold uppercase tracking-wider hover:bg-white transition-colors">
-                                            View Itinerary
-                                        </button>
-                                    </Link>
-                                </div>
-                                <div className="hidden md:block">
-                                    <ArrowRight className="h-20 w-20 text-white/20 group-hover:text-secondary transition-colors duration-500" />
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                    {/* Final CTA Card */}
-                    <div className="relative w-[40vw] h-[70vh] shrink-0 flex flex-col justify-center items-center bg-white text-black p-12">
-                        <h3 className="text-4xl font-serif font-bold text-center mb-6">Create Your Own Story</h3>
-                        <Link href="/contact">
-                            <button className="bg-black text-white px-8 py-3 font-bold uppercase tracking-wider hover:bg-secondary hover:text-black transition-colors">
-                                Start Planning
-                            </button>
-                        </Link>
-                    </div>
-                </motion.div>
+                <div className="absolute bottom-10 left-0 w-full text-center z-10">
+                    <Link href="/contact">
+                        <button className="bg-secondary text-black px-12 py-4 font-black uppercase tracking-widest hover:bg-white transition-colors text-lg">
+                            Curate Your Journey
+                        </button>
+                    </Link>
+                </div>
             </div>
         </section>
+    );
+}
+
+function Card({ tour, index, progress, total }: { tour: any, index: number, progress: any, total: number }) {
+    // Stack Logic: Cards flying in from bottom/z-space
+    const step = 1 / total;
+    const start = index * step;
+    const end = start + step;
+
+    // Adjust ranges for a smoother "deck deal" feel
+    const scale = useTransform(progress, [start, end], [0.5, 1]);
+    const y = useTransform(progress, [start, end], [800, 0]);
+    const rotate = useTransform(progress, [start, end], [index % 2 === 0 ? 15 : -15, 0]);
+    const opacity = useTransform(progress, [start, end], [0, 1]);
+
+    return (
+        <motion.div
+            style={{
+                scale,
+                y,
+                rotateZ: rotate,
+                opacity,
+                zIndex: index
+            }}
+            className="absolute inset-0 bg-white shadow-2xl overflow-hidden group border-4 border-white transform-gpu origin-bottom"
+        >
+            <Image
+                src={tour.image}
+                alt={tour.title}
+                fill
+                className="object-cover transition-transform duration-1000 group-hover:scale-110"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80" />
+
+            <div className="absolute bottom-0 left-0 p-8 w-full">
+                <p className="text-secondary font-bold uppercase tracking-widest mb-2">{tour.type}</p>
+                <h3 className="text-4xl md:text-5xl font-black font-serif text-white leading-none mb-4">{tour.title}</h3>
+                <div className="flex justify-between items-end border-t border-white/20 pt-4">
+                    <span className="text-white font-medium">{tour.days}</span>
+                    <ArrowRight className="text-secondary group-hover:translate-x-2 transition-transform" />
+                </div>
+            </div>
+        </motion.div>
     );
 }

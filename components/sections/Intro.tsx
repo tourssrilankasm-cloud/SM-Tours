@@ -15,9 +15,15 @@ export function Intro() {
     const words = text.split(" ");
 
     return (
-        <section ref={containerRef} className="py-32 bg-white text-black min-h-[50vh] flex items-center justify-center">
-            <div className="container-custom max-w-4xl px-6">
-                <p className="text-3xl md:text-5xl lg:text-6xl font-serif font-bold leading-tight flex flex-wrap gap-x-3 gap-y-2">
+        <section ref={containerRef} className="py-32 bg-black text-white min-h-[50vh] flex items-center justify-center relative overflow-hidden">
+            {/* Ambient Background */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl opacity-20 pointer-events-none">
+                <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-secondary rounded-full blur-[128px]" />
+                <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-white rounded-full blur-[128px]" />
+            </div>
+
+            <div className="container-custom max-w-5xl px-6 relative z-10">
+                <p className="text-3xl md:text-5xl lg:text-7xl font-serif font-medium leading-[1.1] flex flex-wrap gap-x-4 gap-y-2">
                     {words.map((word, i) => {
                         const start = i / words.length;
                         const end = start + (1 / words.length);
@@ -25,9 +31,9 @@ export function Intro() {
                     })}
                 </p>
 
-                <div className="mt-12 flex items-center gap-4">
-                    <div className="h-[2px] w-24 bg-secondary" />
-                    <span className="text-secondary uppercase tracking-widest font-bold text-sm">Our Philosophy</span>
+                <div className="mt-16 flex items-center gap-6">
+                    <div className="h-[1px] w-24 bg-gradient-to-r from-secondary to-transparent" />
+                    <span className="text-secondary uppercase tracking-[0.3em] font-bold text-xs md:text-sm">Our Philosophy</span>
                 </div>
             </div>
         </section>

@@ -97,8 +97,8 @@ function StatItem({ stat, index }: { stat: any, index: number }) {
 
             {/* Content */}
             <div className="relative z-10 text-center px-4">
-                <div className="text-5xl md:text-7xl font-bold font-serif mb-2 group-hover:scale-110 transition-transform duration-500">
-                    <span className="text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-br group-hover:from-white group-hover:to-white/70 transition-all">
+                <div className="text-5xl md:text-7xl font-black font-serif mb-2 group-hover:scale-110 transition-transform duration-500">
+                    <span className="text-white group-hover:text-secondary transition-colors duration-500">
                         {displayValue}
                     </span>
                     <span className="text-secondary">{stat.suffix}</span>
