@@ -83,7 +83,7 @@ export function Header() {
                             className="bg-secondary text-primary hover:bg-secondary/90 font-semibold rounded-full px-6"
                             asChild
                         >
-                            <Link href="/contact">Book Now</Link>
+                            <Link href="/tours">Book Now</Link>
                         </Button>
                     </nav>
 
@@ -123,7 +123,7 @@ export function Header() {
                                     </Link>
                                 ))}
                                 <Button className="w-full bg-secondary text-primary hover:bg-secondary/90 rounded-xl" asChild>
-                                    <Link href="/contact">Book Now</Link>
+                                    <Link href="/tours">Book Now</Link>
                                 </Button>
                             </div>
                         </motion.div>
