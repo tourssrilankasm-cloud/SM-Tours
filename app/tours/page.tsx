@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useRef, useEffect } from "react";
+import { useState, useMemo, useRef, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { TourCard } from "@/components/ui/TourCard";
 import { cn } from "@/lib/utils";
@@ -21,7 +21,9 @@ export default function ToursPage() {
     return (
         <div className="bg-black min-h-screen">
             <HeroSection />
-            <ToursGrid />
+            <Suspense fallback={<div className="min-h-screen bg-black" />}>
+                <ToursGrid />
+            </Suspense>
         </div>
     );
 }

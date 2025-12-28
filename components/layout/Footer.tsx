@@ -1,4 +1,6 @@
 import Link from "next/link";
+import Image from "next/image";
+import logo from "../../public/logo.png";
 import { Plane, Facebook, Instagram, Twitter, Mail, Phone, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -10,8 +12,7 @@ export function Footer() {
                 {/* Brand Column */}
                 <div className="space-y-4">
                     <Link href="/" className="flex items-center gap-2 text-white">
-                        <Plane className="h-6 w-6 text-secondary" />
-                        <span className="text-xl font-serif font-bold">SM Tours</span>
+                        <Image src={logo} alt="SM Tours" className="h-16 w-auto object-contain" />
                     </Link>
                     <p className="text-sm leading-relaxed text-gray-400">
                         Discover the pearl of the Indian Ocean with true local experts.
@@ -19,9 +20,27 @@ export function Footer() {
                         destinations.
                     </p>
                     <div className="flex gap-4 pt-2">
-                        <Link href="#" className="hover:text-secondary transition-colors"><Facebook className="h-5 w-5" /></Link>
-                        <Link href="#" className="hover:text-secondary transition-colors"><Instagram className="h-5 w-5" /></Link>
-                        <Link href="#" className="hover:text-secondary transition-colors"><Twitter className="h-5 w-5" /></Link>
+                        <Link href="https://facebook.com" className="hover:text-secondary transition-colors" aria-label="Facebook">
+                            <Facebook className="h-5 w-5" />
+                        </Link>
+                        <Link href="https://instagram.com" className="hover:text-secondary transition-colors" aria-label="Instagram">
+                            <Instagram className="h-5 w-5" />
+                        </Link>
+                        <Link href="https://tiktok.com" className="hover:text-secondary transition-colors" aria-label="TikTok">
+                            {/* Simple TikTok SVG Icon */}
+                            <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+                            </svg>
+                        </Link>
+                        <Link href="https://google.com" className="hover:text-secondary transition-colors" aria-label="Google">
+                            {/* Simple Google SVG Icon */}
+                            <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M12 8v4l3 3" /> {/* Abstract G/Clock representation or use standard G path if possible, but keeping simple */}
+                                <path d="M17.8 10c.1.7.2 1.3.2 2a6 6 0 0 1-8.3 5.5" />
+                                <path d="M12 12h5.8" />
+                            </svg>
+                        </Link>
                     </div>
                 </div>
 
@@ -41,10 +60,10 @@ export function Footer() {
                 <div>
                     <h3 className="text-white font-semibold mb-4 text-lg">Top Experiences</h3>
                     <ul className="space-y-2 text-sm">
-                        <li><Link href="/tours" className="hover:text-secondary transition-colors">Wildlife Safari</Link></li>
-                        <li><Link href="/tours" className="hover:text-secondary transition-colors">Cultural Triangle</Link></li>
-                        <li><Link href="/tours" className="hover:text-secondary transition-colors">Beach Bliss</Link></li>
-                        <li><Link href="/tours" className="hover:text-secondary transition-colors">Hill Country Escapes</Link></li>
+                        <li><Link href="/tours?cat=Wildlife" className="hover:text-secondary transition-colors">Wildlife Safari</Link></li>
+                        <li><Link href="/tours?cat=Heritage" className="hover:text-secondary transition-colors">Cultural Triangle</Link></li>
+                        <li><Link href="/tours?cat=Beach" className="hover:text-secondary transition-colors">Beach Bliss</Link></li>
+                        <li><Link href="/tours?cat=Nature" className="hover:text-secondary transition-colors">Hill Country Escapes</Link></li>
                     </ul>
                 </div>
 
@@ -54,15 +73,15 @@ export function Footer() {
                     <ul className="space-y-3 text-sm">
                         <li className="flex items-start gap-3">
                             <MapPin className="h-5 w-5 text-secondary shrink-0" />
-                            <span>123 Tourism Dr, Colombo 03, Sri Lanka</span>
+                            <span>32/5/A, Malabe 10115</span>
                         </li>
                         <li className="flex items-center gap-3">
                             <Phone className="h-5 w-5 text-secondary shrink-0" />
-                            <span>+94 77 123 4567</span>
+                            <span>+94 77 640 4091</span>
                         </li>
                         <li className="flex items-center gap-3">
                             <Mail className="h-5 w-5 text-secondary shrink-0" />
-                            <span>hello@smtours.lk</span>
+                            <span>info@smtourssrilanka.com</span>
                         </li>
                     </ul>
                     <div className="mt-6">
@@ -77,8 +96,8 @@ export function Footer() {
             <div className="container-custom mt-12 pt-8 border-t border-white/10 text-center text-sm text-gray-500 flex flex-col md:flex-row justify-between items-center gap-4">
                 <p>&copy; {new Date().getFullYear()} SM Tours. All rights reserved.</p>
                 <div className="flex gap-6">
-                    <Link href="#" className="hover:text-white">Privacy Policy</Link>
-                    <Link href="#" className="hover:text-white">Terms of Service</Link>
+                    <Link href="/privacy-policy" className="hover:text-white">Privacy Policy</Link>
+                    <Link href="/terms-of-service" className="hover:text-white">Terms of Service</Link>
                 </div>
             </div>
         </footer>

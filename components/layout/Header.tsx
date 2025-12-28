@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import logo from "../../public/logo.png";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Plane } from "lucide-react";
@@ -52,12 +54,7 @@ export function Header() {
                 <div className="flex items-center justify-between">
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-2 group">
-                        <span className={cn(
-                            "text-2xl font-serif font-bold tracking-tight transition-colors",
-                            "text-white"
-                        )}>
-                            SM Tours<span className="text-secondary">.</span>
-                        </span>
+                        <Image src={logo} alt="SM Tours" className="h-12 w-auto object-contain" priority />
                     </Link>
 
                     {/* Desktop Nav */}
