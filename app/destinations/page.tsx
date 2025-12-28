@@ -379,7 +379,7 @@ function BentoCard({ dest, hoveredId, setHoveredId }: {
             onMouseEnter={() => setHoveredId(dest.id)}
             onMouseLeave={() => setHoveredId(null)}
         >
-            <Link href={`/contact?destination=${encodeURIComponent(dest.name)}`} className="block h-full w-full relative">
+            <Link href={`/tours?search=${encodeURIComponent(dest.name)}`} className="block h-full w-full relative">
 
                 {/* Image Layer */}
                 <motion.div

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useMemo, useRef } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { TourCard } from "@/components/ui/TourCard";
 import { cn } from "@/lib/utils";
 import { toursData, Tour } from "../../lib/tours-data";
@@ -69,9 +70,18 @@ function HeroSection() {
 }
 
 function ToursGrid() {
+    const searchParams = useSearchParams();
     const [activeCategory, setActiveCategory] = useState("All");
-    const [searchQuery, setSearchQuery] = useState("");
+    const [searchQuery, setSearchQuery] = useState(searchParams.get("search") || "");
     const [sortOption, setSortOption] = useState("recommended");
+
+    // Sync search query from URL if it changes (e.g. back navigation)
+    useEffect(() => {
+        const query = searchParams.get("search");
+        if (query) {
+            setSearchQuery(query);
+        }
+    }, [searchParams]);
 
     // Helper to parse duration string
     const parseDuration = (duration: string) => {
