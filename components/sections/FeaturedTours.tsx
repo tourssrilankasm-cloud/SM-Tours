@@ -6,29 +6,41 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
-const tours = [
+interface Tour {
+    id: string;
+    title: string;
+    image: string;
+    duration: string;
+    type: string;
+}
+
+const tours: Tour[] = [
     {
-        title: "Signature Sri Lanka",
-        image: "/tours/signature-new.jpg",
-        days: "14 Days",
-        type: "Luxury"
-    },
-    {
-        title: "Wilderness Echoes",
-        image: "/tours/wildlife-new.jpg",
-        days: "7 Days",
-        type: "Wildlife"
-    },
-    {
-        title: "Cultural Odyssey",
-        image: "/tours/cultural-new.jpg",
-        days: "10 Days",
+        id: "classic-island-loop",
+        title: "Classic Island Loop",
+        image: "/tours/tour-kandy-lake.jpg",
+        duration: "6 Days",
         type: "Heritage"
     },
     {
-        title: "Coastal Bliss",
-        image: "/tours/beach-new.jpg",
-        days: "5 Days",
+        id: "wild-sri-lanka-safari",
+        title: "Wild Sri Lanka Safari",
+        image: "/tours/tour-card-wildlife.jpg",
+        duration: "7 Days",
+        type: "Wildlife"
+    },
+    {
+        id: "heritage-nature-hills",
+        title: "Heritage, Nature & Hills",
+        image: "/tours/tour-sigiriya-rock.jpg",
+        duration: "6 Days",
+        type: "Heritage"
+    },
+    {
+        id: "southern-explorer",
+        title: "Southern Explorer",
+        image: "/tours/tour-galle-lighthouse.jpg",
+        duration: "6 Days",
         type: "Beach"
     },
 ];
@@ -39,6 +51,8 @@ export function FeaturedTours() {
         target: targetRef,
         offset: ["start start", "end end"]
     });
+
+    const displayTours = tours;
 
     return (
         <section ref={targetRef} className="relative h-[400vh] bg-black">
@@ -51,15 +65,15 @@ export function FeaturedTours() {
                 </div>
 
                 <div className="relative w-[300px] md:w-[500px] h-[400px] md:h-[600px] perspective-1000">
-                    {tours.map((tour, index) => {
-                        return <Card key={index} tour={tour} index={index} progress={scrollYProgress} total={tours.length} />;
+                    {displayTours.map((tour, index) => {
+                        return <Card key={index} tour={tour} index={index} progress={scrollYProgress} total={displayTours.length} />;
                     })}
                 </div>
 
                 <div className="absolute bottom-10 left-0 w-full text-center z-10">
                     <Link href="/contact">
                         <button className="bg-secondary text-black px-12 py-4 font-black uppercase tracking-widest hover:bg-white transition-colors text-lg">
-                            Curate Your Journey
+                            Create Your Journey
                         </button>
                     </Link>
                 </div>
@@ -68,7 +82,7 @@ export function FeaturedTours() {
     );
 }
 
-function Card({ tour, index, progress, total }: { tour: any, index: number, progress: any, total: number }) {
+function Card({ tour, index, progress, total }: { tour: Tour, index: number, progress: any, total: number }) {
     // Stack Logic: Cards flying in from bottom/z-space
     const step = 1 / total;
     const start = index * step;
@@ -89,24 +103,26 @@ function Card({ tour, index, progress, total }: { tour: any, index: number, prog
                 opacity,
                 zIndex: index
             }}
-            className="absolute inset-0 bg-white shadow-2xl overflow-hidden group border-4 border-white transform-gpu origin-bottom"
+            className="absolute inset-0 bg-white shadow-2xl overflow-hidden group border-4 border-white transform-gpu origin-bottom cursor-pointer"
         >
-            <Image
-                src={tour.image}
-                alt={tour.title}
-                fill
-                className="object-cover transition-transform duration-1000 group-hover:scale-110"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80" />
+            <Link href={`/tours/${tour.id}`} className="block w-full h-full relative">
+                <Image
+                    src={tour.image || "/images/placeholder.jpg"} // Fallback image
+                    alt={tour.title}
+                    fill
+                    className="object-cover transition-transform duration-1000 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80" />
 
-            <div className="absolute bottom-0 left-0 p-8 w-full">
-                <p className="text-secondary font-bold uppercase tracking-widest mb-2">{tour.type}</p>
-                <h3 className="text-4xl md:text-5xl font-black font-serif text-white leading-none mb-4">{tour.title}</h3>
-                <div className="flex justify-between items-end border-t border-white/20 pt-4">
-                    <span className="text-white font-medium">{tour.days}</span>
-                    <ArrowRight className="text-secondary group-hover:translate-x-2 transition-transform" />
+                <div className="absolute bottom-0 left-0 p-8 w-full">
+                    <p className="text-secondary font-bold uppercase tracking-widest mb-2">{tour.type}</p>
+                    <h3 className="text-4xl md:text-5xl font-black font-serif text-white leading-none mb-4">{tour.title}</h3>
+                    <div className="flex justify-between items-end border-t border-white/20 pt-4">
+                        <span className="text-white font-medium">{tour.duration}</span>
+                        <ArrowRight className="text-secondary group-hover:translate-x-2 transition-transform" />
+                    </div>
                 </div>
-            </div>
+            </Link>
         </motion.div>
     );
 }
