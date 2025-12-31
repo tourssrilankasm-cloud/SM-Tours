@@ -64,7 +64,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
 
             {/* Typography Overlay (Centered) */}
             <motion.div
-                className="fixed inset-0 z-[10000] flex flex-col items-center justify-center pointer-events-none"
+                className="fixed inset-0 z-[10000] flex flex-col items-center justify-center pointer-events-none px-4"
                 initial={{ opacity: 1 }}
                 animate={{
                     opacity: 0,
@@ -72,12 +72,12 @@ export default function Template({ children }: { children: React.ReactNode }) {
                 }}
             >
                 {/* Greeting Text */}
-                <div className="overflow-hidden mb-8 relative z-10">
-                    <div className="flex gap-1 md:gap-4 justify-center">
+                <div className="overflow-hidden mb-6 md:mb-8 relative z-10 w-full flex justify-center">
+                    <div className="flex justify-center w-full">
                         {letters.map((letter, i) => (
                             <motion.span
                                 key={i}
-                                className="text-6xl md:text-[8rem] lg:text-[10rem] font-serif font-black text-white tracking-tight leading-none drop-shadow-[0_5px_5px_rgba(0,0,0,1)]"
+                                className="text-[14vw] md:text-[8rem] lg:text-[10rem] font-serif font-black text-white tracking-tighter md:tracking-tight leading-none drop-shadow-[0_5px_5px_rgba(0,0,0,1)]"
                                 initial={{ y: "100%", opacity: 0 }}
                                 animate={{
                                     y: 0,
@@ -97,7 +97,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
 
                 {/* Subtext */}
                 <motion.div
-                    className="flex items-center gap-6 overflow-hidden relative z-10"
+                    className="flex items-center gap-3 md:gap-6 overflow-hidden relative z-10"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{
                         opacity: 1,
@@ -105,11 +105,11 @@ export default function Template({ children }: { children: React.ReactNode }) {
                         transition: { duration: 0.8, delay: 1 }
                     }}
                 >
-                    <div className="h-[1px] w-16 md:w-32 bg-white box-shadow-lg" />
-                    <p className="text-sm md:text-xl font-sans tracking-[0.6em] uppercase font-bold text-white drop-shadow-lg">
+                    <div className="h-[1px] w-8 md:w-32 bg-white box-shadow-lg" />
+                    <p className="text-[10px] md:text-xl font-sans tracking-[0.3em] md:tracking-[0.6em] uppercase font-bold text-white drop-shadow-lg text-center">
                         Welcome to Paradise
                     </p>
-                    <div className="h-[1px] w-16 md:w-32 bg-white box-shadow-lg" />
+                    <div className="h-[1px] w-8 md:w-32 bg-white box-shadow-lg" />
                 </motion.div>
             </motion.div>
 
