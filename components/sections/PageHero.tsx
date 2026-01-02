@@ -25,7 +25,7 @@ export function PageHero({ image, title, subtitle, description, alt = "Hero Imag
     const scale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
 
     return (
-        <section ref={containerRef} className="relative h-[75vh] min-h-[600px] overflow-hidden bg-black flex items-center justify-center">
+        <section ref={containerRef} className="relative h-[65vh] md:h-[75vh] min-h-[500px] md:min-h-[600px] overflow-hidden bg-black flex items-center justify-center">
 
             {/* Background Layer */}
             <motion.div style={{ y, scale }} className="absolute inset-0 z-0">
@@ -50,7 +50,7 @@ export function PageHero({ image, title, subtitle, description, alt = "Hero Imag
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ duration: 0.8 }}
-                    className="flex items-center gap-3 mb-6"
+                    className="flex items-center gap-3 mb-4 md:mb-6"
                 >
                     <div className="h-[1px] w-8 sm:w-12 bg-secondary" />
                     <span className="text-secondary text-xs sm:text-sm font-black uppercase tracking-[0.3em] whitespace-nowrap">
@@ -64,7 +64,7 @@ export function PageHero({ image, title, subtitle, description, alt = "Hero Imag
                     initial={{ y: 30, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ duration: 0.8, delay: 0.2 }}
-                    className="text-5xl md:text-7xl lg:text-8xl font-serif font-black text-white mb-8 leading-tight drop-shadow-2xl"
+                    className="text-4xl md:text-7xl lg:text-8xl font-serif font-black text-white mb-6 md:mb-8 leading-tight drop-shadow-2xl"
                 >
                     {title}
                 </motion.h1>
@@ -75,7 +75,7 @@ export function PageHero({ image, title, subtitle, description, alt = "Hero Imag
                         initial={{ y: 20, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
                         transition={{ duration: 0.8, delay: 0.4 }}
-                        className="text-lg md:text-xl text-white/90 font-light leading-relaxed max-w-2xl drop-shadow-md"
+                        className="text-base md:text-xl text-white/90 font-light leading-relaxed max-w-2xl drop-shadow-md px-4"
                     >
                         {description}
                     </motion.p>
@@ -91,4 +91,5 @@ export function PageHero({ image, title, subtitle, description, alt = "Hero Imag
             </motion.div>
         </section>
     );
+
 }
