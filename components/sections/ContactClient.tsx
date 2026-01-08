@@ -19,16 +19,79 @@ export function ContactClient() {
                 Let's import it directly as it likely doesn't have heavy server dependencies.
             */}
             <ContactInfo />
+            <MapSection />
             <InquirySection />
         </div>
     );
 }
 
+function MapSection() {
+    return (
+        <section className="relative w-full h-[500px] md:h-[600px] border-y border-white/10 overflow-hidden group">
+            {/* Map Container */}
+            <div className="absolute inset-0 bg-[#0A0A0A] transition-all duration-700 grayscale group-hover:grayscale-0 contrast-[1.1] brightness-[0.8] group-hover:brightness-100">
+                <iframe
+                    width="100%"
+                    height="100%"
+                    frameBorder="0"
+                    scrolling="no"
+                    marginHeight={0}
+                    marginWidth={0}
+                    src="https://maps.google.com/maps?width=100%25&height=600&hl=en&q=No.%20105,%20Kahanthota%20Road,%20Malabe,%20Sri%20Lanka+(SM%20Tours)&t=&z=15&ie=UTF8&iwloc=B&output=embed"
+                    className="w-full h-full opacity-70 group-hover:opacity-100 transition-opacity duration-700"
+                    style={{ filter: "invert(90%) hue-rotate(180deg)" }} // Custom dark mode attempt via CSS filter
+                >
+                </iframe>
+            </div>
+
+            {/* Gradient Overlays for Blending */}
+            <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#020202] to-transparent pointer-events-none" />
+            <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#020202] to-transparent pointer-events-none" />
+            <div className="absolute inset-0 bg-[#020202]/20 pointer-events-none group-hover:bg-transparent transition-colors duration-700" />
+
+            {/* Floating Location Card */}
+            <div className="absolute bottom-12 left-1/2 -translate-x-1/2 md:left-12 md:translate-x-0 z-20">
+                <div className="bg-[#0A0A0A]/90 backdrop-blur-md border border-white/20 p-6 md:p-8 rounded-sm max-w-sm shadow-2xl transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                    <div className="flex items-center gap-4 mb-4">
+                        <div className="w-10 h-10 rounded-full bg-secondary text-black flex items-center justify-center">
+                            <MapPin className="w-5 h-5" />
+                        </div>
+                        <div>
+                            <span className="text-[10px] font-bold uppercase tracking-widest text-white/50 block">Location</span>
+                            <h3 className="text-xl font-serif text-white">Headquarters</h3>
+                        </div>
+                    </div>
+                    <p className="text-white/70 text-sm font-light leading-relaxed mb-6">
+                        No. 105, Kahanthota Road,<br />
+                        Malabe, Sri Lanka
+                    </p>
+                    <a
+                        href="https://share.google/B5ctbheJn4mi99yiU"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs font-bold uppercase tracking-widest text-white hover:text-secondary border-b border-white/20 hover:border-secondary pb-1 transition-all inline-flex items-center gap-2"
+                    >
+                        Get Directions <ArrowRight className="w-3 h-3" />
+                    </a>
+                </div>
+            </div>
+        </section>
+    );
+}
+
 function ContactInfo() {
-    const info = [
-        { icon: MapPin, title: "Visit Us", lines: ["No. 105", "Kahanthota Road, Malabe"], label: "HQ" },
-        { icon: Mail, title: "Email", lines: ["info@smtourssrilanka.com", "bookings@smtourssrilanka.com"], label: "24/7" },
-        { icon: Phone, title: "Call", lines: ["+94 77 123 4567", "+94 11 234 5678"], label: "Support" },
+    type ContactInfoItem = {
+        icon: any;
+        title: string;
+        lines: string[];
+        label: string;
+        link?: string;
+    };
+
+    const info: ContactInfoItem[] = [
+        { icon: MapPin, title: "Visit Us", lines: ["No. 105", "Kahanthota Road, Malabe"], label: "HQ", link: "https://share.google/B5ctbheJn4mi99yiU" },
+        { icon: Mail, title: "Email", lines: ["info@smtourssrilanka.com"], label: "24/7" },
+        { icon: Phone, title: "Call", lines: ["+94 77 640 4091"], label: "Support" },
         { icon: Clock, title: "Hours", lines: ["Mon-Fri: 9AM - 6PM", "Weekend: 10AM - 4PM"], label: "Open" }
     ];
 
@@ -65,6 +128,16 @@ function ContactInfo() {
                                             {line}
                                         </p>
                                     ))}
+                                    {item.link && (
+                                        <a
+                                            href={item.link}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-xs font-bold bg-secondary text-black px-3 py-2 mt-4 inline-flex items-center gap-2 hover:bg-white hover:scale-105 transition-all rounded-sm uppercase tracking-wider"
+                                        >
+                                            Open Map <ArrowRight className="h-3 w-3" />
+                                        </a>
+                                    )}
                                 </div>
                             </div>
                         </motion.div>
