@@ -10,6 +10,16 @@ import { cn } from "@/lib/utils";
 import { Calendar } from "@/components/ui/calendar";
 import { PageHero } from "@/components/sections/PageHero";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Contact Us | Plan Your Trip",
+    description: "Get in touch with SM Tours Sri Lanka. Contact us for custom tour packages, price quotes, or travel advice. We are available 24/7.",
+    alternates: {
+        canonical: '/contact',
+    },
+};
+
 export default function ContactPage() {
     return (
         <div className="bg-[#020202] min-h-screen text-white selection:bg-white selection:text-black overflow-x-hidden">
@@ -29,8 +39,8 @@ export default function ContactPage() {
 
 function ContactInfo() {
     const info = [
-        { icon: MapPin, title: "Visit Us", lines: ["123 Tourism Dr", "Colombo 03, Sri Lanka"], label: "HQ" },
-        { icon: Mail, title: "Email", lines: ["hello@smtours.lk", "bookings@smtours.lk"], label: "24/7" },
+        { icon: MapPin, title: "Visit Us", lines: ["No. 105", "Kahanthota Road, Malabe"], label: "HQ" },
+        { icon: Mail, title: "Email", lines: ["info@smtourssrilanka.com", "bookings@smtourssrilanka.com"], label: "24/7" },
         { icon: Phone, title: "Call", lines: ["+94 77 123 4567", "+94 11 234 5678"], label: "Support" },
         { icon: Clock, title: "Hours", lines: ["Mon-Fri: 9AM - 6PM", "Weekend: 10AM - 4PM"], label: "Open" }
     ];

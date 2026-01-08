@@ -7,6 +7,16 @@ import Link from "next/link";
 import { Award, Heart, Globe, Users, ArrowRight, MapPin } from "lucide-react";
 import { PageHero } from "@/components/sections/PageHero";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "About Us | Our Story & Vision",
+    description: "Learn about SM Tours Sri Lanka, a trusted local tour operator dedicated to sustainable tourism, authentic experiences, and showcasing the true spirit of Ceylon.",
+    alternates: {
+        canonical: '/about',
+    },
+};
+
 export default function AboutPage() {
     return (
         <>

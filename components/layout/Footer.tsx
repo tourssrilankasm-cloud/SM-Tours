@@ -73,7 +73,7 @@ export function Footer() {
                     <ul className="space-y-3 text-sm">
                         <li className="flex items-start gap-3">
                             <MapPin className="h-5 w-5 text-secondary shrink-0" />
-                            <span>32/5/A, Malabe 10115</span>
+                            <span>No. 105, Kahanthota Road, Malabe, Sri Lanka</span>
                         </li>
                         <li className="flex items-center gap-3">
                             <Phone className="h-5 w-5 text-secondary shrink-0" />
