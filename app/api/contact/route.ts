@@ -12,7 +12,7 @@ export async function POST(request: Request) {
         console.log("DEBUG: Password Length:", process.env.SMTP_PASSWORD ? process.env.SMTP_PASSWORD.length : 0);
 
         // Basic server-side validation
-        if (!name || !email || !message) {
+        if (!name || !email) {
             return NextResponse.json(
                 { error: 'Missing required fields' },
                 { status: 400 }

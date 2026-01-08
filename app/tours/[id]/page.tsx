@@ -134,10 +134,41 @@ function BookingModal({ tourTitle, onClose }: { tourTitle: string, onClose: () =
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setStatus("submitting");
-        // Simulate loading
-        await new Promise(r => setTimeout(r, 1500));
-        setStatus("success");
+
+        const form = e.target as HTMLFormElement;
+        const formData = {
+            name: `${(form.elements.namedItem('firstName') as HTMLInputElement).value} ${(form.elements.namedItem('lastName') as HTMLInputElement).value}`,
+            email: (form.elements.namedItem('email') as HTMLInputElement).value,
+            date: (form.elements.namedItem('date') as HTMLInputElement).value,
+            interest: `Booking Request: ${tourTitle}`,
+            message: (form.elements.namedItem('message') as HTMLTextAreaElement).value,
+            phone: (form.elements.namedItem('phone') as HTMLInputElement).value
+        };
+
+        try {
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData),
+            });
+
+            if (!response.ok) {
+                const data = await response.json();
+                throw new Error(data.error || 'Failed to send inquiry');
+            }
+
+            setStatus("success");
+        } catch (error) {
+            console.error(error);
+            alert(error instanceof Error ? error.message : "Failed to send inquiry. Please try again.");
+            setStatus("idle");
+        }
     };
+
+    // Calculate minimum date (today + 2 days)
+    const today = new Date();
+    today.setDate(today.getDate() + 2);
+    const minDate = today.toISOString().split('T')[0];
 
     return (
         <motion.div
@@ -183,28 +214,40 @@ function BookingModal({ tourTitle, onClose }: { tourTitle: string, onClose: () =
                         <form onSubmit={handleSubmit} className="space-y-4">
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="space-y-1">
-                                    <label className="text-xs font-bold uppercase text-gray-500">First Name</label>
-                                    <input required className="w-full bg-gray-50 border border-gray-200 p-3 text-sm focus:outline-none focus:border-black transition-colors" placeholder="John" />
+                                    <label className="text-xs font-bold uppercase text-gray-500">First Name <span className="text-red-500">*</span></label>
+                                    <input name="firstName" required className="w-full bg-gray-50 border border-gray-200 p-3 text-sm focus:outline-none focus:border-black transition-colors" placeholder="John" />
                                 </div>
                                 <div className="space-y-1">
-                                    <label className="text-xs font-bold uppercase text-gray-500">Last Name</label>
-                                    <input required className="w-full bg-gray-50 border border-gray-200 p-3 text-sm focus:outline-none focus:border-black transition-colors" placeholder="Doe" />
+                                    <label className="text-xs font-bold uppercase text-gray-500">Last Name <span className="text-red-500">*</span></label>
+                                    <input name="lastName" required className="w-full bg-gray-50 border border-gray-200 p-3 text-sm focus:outline-none focus:border-black transition-colors" placeholder="Doe" />
                                 </div>
                             </div>
 
                             <div className="space-y-1">
-                                <label className="text-xs font-bold uppercase text-gray-500">Email Address</label>
-                                <input type="email" required className="w-full bg-gray-50 border border-gray-200 p-3 text-sm focus:outline-none focus:border-black transition-colors" placeholder="john@example.com" />
+                                <label className="text-xs font-bold uppercase text-gray-500">Email Address <span className="text-red-500">*</span></label>
+                                <input name="email" type="email" required className="w-full bg-gray-50 border border-gray-200 p-3 text-sm focus:outline-none focus:border-black transition-colors" placeholder="john@example.com" />
                             </div>
 
                             <div className="space-y-1">
-                                <label className="text-xs font-bold uppercase text-gray-500">Travel Date (Approx)</label>
-                                <input type="date" className="w-full bg-gray-50 border border-gray-200 p-3 text-sm focus:outline-none focus:border-black transition-colors" />
+                                <label className="text-xs font-bold uppercase text-gray-500">Phone Number <span className="text-red-500">*</span></label>
+                                <input name="phone" type="tel" required className="w-full bg-gray-50 border border-gray-200 p-3 text-sm focus:outline-none focus:border-black transition-colors" placeholder="+1 (555) 000-0000" />
                             </div>
 
                             <div className="space-y-1">
-                                <label className="text-xs font-bold uppercase text-gray-500">Message / Special Requests</label>
-                                <textarea rows={3} className="w-full bg-gray-50 border border-gray-200 p-3 text-sm focus:outline-none focus:border-black transition-colors" placeholder="Tell us about your preferences..." />
+                                <label className="text-xs font-bold uppercase text-gray-500">Travel Date (Approx) <span className="text-red-500">*</span></label>
+                                <input
+                                    name="date"
+                                    type="date"
+                                    required
+                                    min={minDate}
+                                    className="w-full bg-gray-50 border border-gray-200 p-3 text-sm focus:outline-none focus:border-black transition-colors"
+                                />
+                                <p className="text-[10px] text-gray-400">Must be at least 2 days in advance.</p>
+                            </div>
+
+                            <div className="space-y-1">
+                                <label className="text-xs font-bold uppercase text-gray-500">Message / Special Requests <span className="text-xs font-normal text-gray-400 lowercase">(optional)</span></label>
+                                <textarea name="message" rows={3} className="w-full bg-gray-50 border border-gray-200 p-3 text-sm focus:outline-none focus:border-black transition-colors" placeholder="Tell us about your preferences..." />
                             </div>
 
                             <button
